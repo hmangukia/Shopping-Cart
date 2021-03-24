@@ -7,12 +7,26 @@ class Counter extends Component {
         tags: ["tag1", "tag 2", "tag3"]
     };
 
+    constructor(){
+        super();
+        this.handleIncrement = this.handleIncrement.bind(this);
+    }
+
+    renderTags(){
+        if (this.state.tags.length === 0) return <p>There are no tags!</p>
+        return <ul>{this.state.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+    }
+
+    handleIncrement(){
+        console.log("Increment clicked", this)
+    }
+
     render() { 
         return (
             <div>
                 <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-                <button className="btn btn-secondary btn-sm">Increment</button>
-                <ul>{this.state.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+                <button onClick={this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button>
+                { this.renderTags() }
             </div>
         );
     }
